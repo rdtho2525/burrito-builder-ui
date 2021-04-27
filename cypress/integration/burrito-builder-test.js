@@ -9,6 +9,9 @@ describe('Burrito Orders', () => {
         ingredients: ['beans', 'sofritas', 'carnitas']
       }
     })
+    cy.intercept('DELETE', 'http://localhost:3001/api/v1/orders/:order_id', {
+      statusCode: 204
+    })
     cy.visit('http://localhost:3000/?name=&beans=')
   })
 
@@ -50,5 +53,12 @@ describe('Burrito Orders', () => {
     cy.get('section').children().should('have.length', 5)
     cy.get('h3')
       .contains('Jerry');
+  })
+
+  it('should be able to delete an order by selecting the cancel order button', () => {
+    cy.get('.cancel1')
+      .click()
+    cy.get('section').children().should('have.length', 3)
+    cy.get('h3').should('not.have.value', 'Tic')
   })
 });
