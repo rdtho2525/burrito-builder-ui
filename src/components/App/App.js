@@ -14,13 +14,13 @@ class App extends Component {
 
   submitOrder = (order) => {
     postOrders(order)
-      .then(ordersData => this.setState({orders: ordersData.orders}))
-      .catch(error => console.error(error))
+      .then(ordersData => this.setState({orders: [...this.state.orders, ordersData]}))
+      .catch(error => console.error('Error posting:', error))
   }
 
   componentDidMount() {
     getOrders()
-      .then(ordersData => this.setState({ orders: ordersData.orders }))
+      .then(ordersData => this.setState({ orders: ordersData.orders}))
       .catch(err => console.error('Error fetching:', err));
   }
 
@@ -32,7 +32,7 @@ class App extends Component {
           <OrderForm submitOrder={this.submitOrder} />
         </header>
 
-        <Orders orders={this.state.orders}/>
+      <Orders orders={this.state.orders}/>
       </main>
     );
   }
