@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getOrders, postOrders } from '../../apiCalls';
+import { getOrders, postOrders, deleteOrder } from '../../apiCalls';
 import Orders from '../../components/Orders/Orders';
 import OrderForm from '../../components/OrderForm/OrderForm';
 
@@ -18,6 +18,15 @@ class App extends Component {
       .catch(error => console.error('Error posting:', error))
   }
 
+  deleteSelectedOrder = (id) => {
+    deleteOrder(id)
+      .then(response => response.json())
+      .catch(error => console.log(error));
+
+    const filteredOrders = this.state.orders.filter(order => order.id !== id)
+    this.setState({ orders: filteredOrders});
+  }
+
   componentDidMount() {
     getOrders()
       .then(ordersData => this.setState({ orders: ordersData.orders}))
@@ -32,7 +41,7 @@ class App extends Component {
           <OrderForm submitOrder={this.submitOrder} />
         </header>
 
-      <Orders orders={this.state.orders}/>
+      <Orders deleteSelectedOrder={this.deleteSelectedOrder} orders={this.state.orders}/>
       </main>
     );
   }
