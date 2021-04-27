@@ -12,7 +12,7 @@ const Orders = ({ orders, deleteSelectedOrder }) => {
             return <li>{ingredient}</li>
           })}
         </ul>
-        <button onClick={() => deleteSelectedOrder(order.id)}>Cancel Order</button>
+        <button className={`cancel${order.id}`} onClick={() => deleteSelectedOrder(order.id)}>Cancel Order</button>
       </div>
     )
   });
