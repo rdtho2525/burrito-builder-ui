@@ -24,6 +24,7 @@ class OrderForm extends Component {
 
   handleSubmit = (e, order) => {
     e.preventDefault();
+
     this.props.submitOrder(order);
     this.clearInputs();
   }
@@ -55,7 +56,7 @@ class OrderForm extends Component {
         { ingredientButtons }
 
         <p>Order: { this.state.ingredients.join(', ') || 'Nothing selected' }</p>
-        <button onClick={e => this.handleSubmit(e, this.state)}>
+        <button className="submit-button" onClick={e => this.handleSubmit(e, this.state)}>
           Submit Order
         </button>
       </form>
