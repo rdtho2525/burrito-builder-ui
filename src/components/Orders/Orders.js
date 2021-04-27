@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Orders.css';
 
-const Orders = ({ orders }) => {
+const Orders = ({ orders, deleteSelectedOrder }) => {
   const orderEls = orders.map(order => {
     return (
       <div key={order.id} className="order">
@@ -11,6 +12,7 @@ const Orders = ({ orders }) => {
             return <li>{ingredient}</li>
           })}
         </ul>
+        <button onClick={() => deleteSelectedOrder(order.id)}>Cancel Order</button>
       </div>
     )
   });
@@ -23,3 +25,8 @@ const Orders = ({ orders }) => {
 }
 
 export default Orders;
+
+Orders.propTypes = {
+  orders: PropTypes.array,
+  deleteSelectedOrder: PropTypes.func
+}
