@@ -9,7 +9,12 @@ export const postOrders = (order) => {
       headers: {
         'Content-type': 'application/json'
       },
-      body: JSON.stringify(order)
+      body: JSON.stringify(
+        {
+          id: Date.now(),
+          name: order.name,
+          ingredients: order.ingredients
+        })
     })
       .then(response => response.json())
 }
